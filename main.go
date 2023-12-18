@@ -2,11 +2,11 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
-	"io"
 	"os"
 	"strings"
+
+	"github.com/lalathealter/ysingh-backend-assignment/commlogic"
 )
 
 const TagREPL = "YSS>>: "
@@ -16,7 +16,7 @@ func main() {
 	fmt.Println("Ysingh v1.0.0")
 
 	scanner := bufio.NewScanner(os.Stdin)
-	comms := ProduceCommandInterpreter()
+	comms := commlogic.ProduceCommandInterpreter()
 	for {
 		fmt.Print(TagREPL)
 		if !scanner.Scan() {
@@ -30,28 +30,8 @@ func main() {
 			res = err.Error()
 		}
 		fmt.Println(res)
+		fmt.Println(commlogic.GetWarehousesColl())
+		fmt.Println(commlogic.GetCatalog())
 
 	}
-}
-
-type CommandInterpreter map[string]func(any) string
-
-func (ci CommandInterpreter) Execute(args []string) (string, error) {
-	comfun, ok := ci[args[0]]
-	if !ok {
-		return "", errors.New("UKNOWN COMMAND")
-	}
-	ans := comfun(args)
-	return ans, nil
-}
-
-func ProduceCommandInterpreter() CommandInterpreter {
-	return CommandInterpreter{
-		"STOP": ExitApp,
-	}
-}
-
-func ExitApp(_ any) string {
-	go os.Exit(0)
-	return io.EOF.Error()
 }
