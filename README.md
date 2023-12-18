@@ -1,39 +1,26 @@
 # Rooms To Go Engineering: Take Home Assignment
 
-## How we will run your program
-1. Clone your repository
-2. npm install (or pip install, if your language does not have a installer please provide a bash script called install.sh)
-3. npm start (another way to run the app)
-4. EOF to quit the REPL
+## Running instructions
 
-Thank you for your continued interest in Rooms to Go!
+Before proceeding make sure that you have go compiler installed
 
-This at-home coding challenge is an opportunity for you to write some code that shows us how you use data structures to solve algorithmic problems.
+To download all dependencies:
+```
+go mod download
+```
 
-  * Write code as if you were shipping it: Assume you are going to be code reviewed, articulate a test plan, etc.
-  * We expect this solution to be written in nodejs, but you are welcome to use another language.
-  * Use your preferred IDE or editor and whatever tooling you're comfortable with.
-  * Feel free to use whatever references you'd like, including Google.
-  * Your solution does not have to persist data between runs.
-  * When you’re finished, make sure your code is committed to the repo with instructions on how to run it.
-  * Your solution should be self-contained and not require additional software to run it.
-  * Got an idea for a cool feature to add? Do it! We love seeing your creative side
+To run (if you don't have the dependencies installed, it'll get them automatically):
+```
+go run .
+```
 
-## Problem Statement
-Create a command line REPL to manage product inventory.
+To compile a binary:
+```
+go build .
+```
 
-Managing product inventory requires adding products to a product catalog and adding warehouses to store the products.
 
-We will use 7 commands to enable this functionality:
-1. ADD PRODUCT
-2. ADD WAREHOUSE
-3. STOCK
-4. UNSTOCK
-5. LIST PRODUCTS
-6. LIST WAREHOUSES
-7. LIST WAREHOUSE
-
-## Details
+## API Details
 - Our application will take in user input one line at a time.
 
 Bold text denotes text that will be entered as-is, italics denote arguments that will be replaced by a value. Optional arguments are surrounded by square brackets ([]).
@@ -73,14 +60,6 @@ Bold text denotes text that will be entered as-is, italics denote arguments that
 7. **LIST WAREHOUSE** *WAREHOUSE#**
 - List information about the warehouse with the given warehouse# along with a listing of all product stocked in the warehouse.
 
-
-## COMMAND HISTORY
-We like to keep a log of commands issued in the product management software so we can debug issues that arose during manual data entry.
-While the REPL is active, asynchrously stream history to a file in batches of 2.
-If a user types in two commands we want those two to be in the same batch, if they type 3 commands stream the first two and wait for the fourth command.
-Do not stream more than one batch at a time.
-
-
 ## EXAMPLE SESSION
 Here is an example session to show you what a run of your program should look like.
 - Example Input is prepended with >
@@ -112,6 +91,49 @@ ITEM NAME                               ITEM_SKU                              QT
 Sofia Vegara 5 Piece Living Room Set    38538505-0767-453f-89af-d11c809ebb3b  1000
 
 ```
+
+# ORIGINAL ASSIGNMENT TEXT
+
+## How we will run your program
+1. Clone your repository
+2. npm install (or pip install, if your language does not have a installer please provide a bash script called install.sh)
+3. npm start (another way to run the app)
+4. EOF to quit the REPL
+
+Thank you for your continued interest in Rooms to Go!
+
+This at-home coding challenge is an opportunity for you to write some code that shows us how you use data structures to solve algorithmic problems.
+
+  * Write code as if you were shipping it: Assume you are going to be code reviewed, articulate a test plan, etc.
+  * We expect this solution to be written in nodejs, but you are welcome to use another language.
+  * Use your preferred IDE or editor and whatever tooling you're comfortable with.
+  * Feel free to use whatever references you'd like, including Google.
+  * Your solution does not have to persist data between runs.
+  * When you’re finished, make sure your code is committed to the repo with instructions on how to run it.
+  * Your solution should be self-contained and not require additional software to run it.
+  * Got an idea for a cool feature to add? Do it! We love seeing your creative side
+
+## Problem Statement
+Create a command line REPL to manage product inventory.
+
+Managing product inventory requires adding products to a product catalog and adding warehouses to store the products.
+
+We will use 7 commands to enable this functionality:
+1. ADD PRODUCT
+2. ADD WAREHOUSE
+3. STOCK
+4. UNSTOCK
+5. LIST PRODUCTS
+6. LIST WAREHOUSES
+7. LIST WAREHOUSE
+
+
+## COMMAND HISTORY
+We like to keep a log of commands issued in the product management software so we can debug issues that arose during manual data entry.
+While the REPL is active, asynchrously stream history to a file in batches of 2.
+If a user types in two commands we want those two to be in the same batch, if they type 3 commands stream the first two and wait for the fourth command.
+Do not stream more than one batch at a time.
+
 
 ## SUBMISSION
 - You can assume that stocking happens without delay and as soon as the command is issued.
