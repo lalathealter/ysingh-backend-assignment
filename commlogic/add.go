@@ -23,9 +23,6 @@ func AddWarehouse(args []string) (string, error) {
 		if err != nil {
 			return ans, ErrArguementNotInteger
 		}
-		if stockLimit < 0 {
-			stockLimit = 0
-		}
 	}
 
 	wares := GetWarehousesColl()
@@ -34,7 +31,7 @@ func AddWarehouse(args []string) (string, error) {
 		return ans, ErrItemAlreadyExists
 	}
 
-	wares[wareInt] = stockLimit
+	wares[wareInt] = ProduceWarehouse(stockLimit)
 	ans = fmt.Sprintf("Warehouse #%v was added successfully", wareInt)
 	return ans, nil
 }

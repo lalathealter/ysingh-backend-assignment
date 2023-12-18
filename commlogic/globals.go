@@ -1,6 +1,27 @@
 package commlogic
 
-type WarehousesColl map[int]int
+type Warehouse struct {
+	Limit   int
+	Storage map[string]int
+}
+
+func (w Warehouse) Store(SKU string, QTY int) {
+	w.Storage[SKU] += QTY
+	if w.Limit != 0 && w.Storage[SKU] > w.Limit {
+		w.Storage[SKU] = w.Limit
+	} else if w.Storage[SKU] < 0 {
+		w.Storage[SKU] = 0
+	}
+}
+
+func ProduceWarehouse(cap int) Warehouse {
+	if cap < 0 {
+		cap = 0
+	}
+	return Warehouse{cap, map[string]int{}}
+}
+
+type WarehousesColl map[int]Warehouse
 
 var GetWarehousesColl = func() func() WarehousesColl {
 	wares := WarehousesColl{}
@@ -9,11 +30,11 @@ var GetWarehousesColl = func() func() WarehousesColl {
 	}
 }()
 
-type GlobalCatalog map[string]string
+type Catalog map[string]string
 
-var GetCatalog = func() func() GlobalCatalog {
-	cat := GlobalCatalog{}
-	return func() GlobalCatalog {
+var GetCatalog = func() func() Catalog {
+	cat := Catalog{}
+	return func() Catalog {
 		return cat
 	}
 }()

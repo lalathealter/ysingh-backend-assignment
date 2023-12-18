@@ -24,8 +24,8 @@ func ProduceCommandInterpreter() CommandInterpreter {
 			ProductTerm:   AddProduct,
 			WarehouseTerm: AddWarehouse,
 		}),
-		// StockTerm:   StockItem,
-		// UnstockTerm: UnstockItem,
+		StockTerm:   Stock,
+		UnstockTerm: Unstock,
 		// ListTerm:    ListItems,
 	}
 }
