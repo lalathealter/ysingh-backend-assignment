@@ -26,7 +26,11 @@ func ProduceCommandInterpreter() CommandInterpreter {
 		}),
 		StockTerm:   Stock,
 		UnstockTerm: Unstock,
-		// ListTerm:    ListItems,
+		ListTerm: BranchCommands(CommandInterpreter{
+			ProductsTerm:   ListProducts,
+			WarehousesTerm: ListWarehouses,
+			WarehouseTerm:  ListWarehouseContents,
+		}),
 	}
 }
 
@@ -37,6 +41,7 @@ const (
 	ListTerm       = "LIST"
 	StopTerm       = "STOP"
 	ProductTerm    = "PRODUCT"
+	ProductsTerm   = "PRODUCTS"
 	WarehouseTerm  = "WAREHOUSE"
 	WarehousesTerm = "WAREHOUSES"
 )

@@ -5,8 +5,8 @@ import (
 	"strconv"
 )
 
-var Stock = BindStock(1, "%vx OF PRODUCT [%v] WAS SUCCESSFULLY ADDED TO THE WAREHOUSE #%v")
-var Unstock = BindStock(-1, "%vx OF PRODUCT [%v] WAS SUCCESSFULLY SUBTRACTED FROM THE WAREHOUSE #%v")
+var Stock = BindStock(1, "%vx UNITS OF PRODUCT [%v] WERE ADDED TO THE WAREHOUSE #%v")
+var Unstock = BindStock(-1, "%vx UNITS OF PRODUCT [%v] WERE SUBTRACTED FROM THE WAREHOUSE #%v")
 
 func BindStock(multiplier int, msgTemp string) func([]string) (string, error) {
 	return func(args []string) (string, error) {
@@ -30,8 +30,8 @@ func BindStock(multiplier int, msgTemp string) func([]string) (string, error) {
 			return ans, ErrWarehouseDoesntExist
 		}
 
-		ware.Store(SKU, multiplier*QTY)
-		ans = fmt.Sprintf(msgTemp, QTY, SKU, wareInt)
+		diff := ware.Store(SKU, multiplier*QTY)
+		ans = fmt.Sprintf(msgTemp, diff, SKU, wareInt)
 		return ans, nil
 	}
 }
