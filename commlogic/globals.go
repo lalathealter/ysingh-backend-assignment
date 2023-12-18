@@ -1,34 +1,36 @@
 package commlogic
 
 type Warehouse struct {
-	Limit   int
-	Storage map[string]int
+	ItemsCount int
+	Limit      int
+	Storage    map[string]int
 }
 
-func (w Warehouse) Store(SKU string, QTY int) int {
+func (w *Warehouse) Store(SKU string, QTY int) int {
 	oldAmount := w.Storage[SKU]
 	w.Storage[SKU] += QTY
-	if w.Limit != 0 && w.Storage[SKU] > w.Limit {
-		w.Storage[SKU] = w.Limit
+	if w.Limit != 0 && w.ItemsCount+QTY > w.Limit {
+		w.Storage[SKU] -= ((w.ItemsCount + QTY) - w.Limit)
 	} else if w.Storage[SKU] < 0 {
-		w.Storage[SKU] = 0
+		delete(w.Storage, SKU)
 	}
 
-	diff := oldAmount - w.Storage[SKU]
+	diff := w.Storage[SKU] - oldAmount
+	w.ItemsCount += diff
 	if diff < 0 {
 		diff = -diff
 	}
 	return diff
 }
 
-func ProduceWarehouse(cap int) Warehouse {
+func ProduceWarehouse(cap int) *Warehouse {
 	if cap < 0 {
 		cap = 0
 	}
-	return Warehouse{cap, map[string]int{}}
+	return &Warehouse{0, cap, map[string]int{}}
 }
 
-type WarehousesColl map[int]Warehouse
+type WarehousesColl map[int]*Warehouse
 
 var GetWarehousesColl = func() func() WarehousesColl {
 	wares := WarehousesColl{}

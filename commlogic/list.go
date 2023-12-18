@@ -41,7 +41,8 @@ func ListWarehouseContents(args []string) (string, error) {
 		return "", ErrWarehouseDoesntExist
 	}
 
-	ans := fmt.Sprintf("Warehouse's #%v maximum capacity is: %v\n", id, ware.Limit)
+  ans := fmt.Sprintf("Warehouse has %v items in total\n", ware.ItemsCount)
+	ans += fmt.Sprintf("Warehouse's maximum capacity is: %v\n", ware.Limit)
 	ans += fmt.Sprintf("Contents of the warehouse #%v:\n", id)
 	for prod, count := range ware.Storage {
 		ans += fmt.Sprintf("[%v]: %v units\n", prod, count)

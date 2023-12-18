@@ -30,8 +30,6 @@ func main() {
 			res = err.Error()
 		}
 		fmt.Println(res)
-		fmt.Println(commlogic.GetWarehousesColl())
-		fmt.Println(commlogic.GetCatalog())
 
 	}
 }
