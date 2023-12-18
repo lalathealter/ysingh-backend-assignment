@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/lalathealter/ysingh-backend-assignment/commlogic"
+	"github.com/lalathealter/ysingh-backend-assignment/logstream"
 )
 
 const TagREPL = "YSS>>: "
@@ -17,6 +18,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	comms := commlogic.ProduceCommandInterpreter()
+	logStreamer := logstream.ProduceLogStreamer()
 	for {
 		fmt.Print(TagREPL)
 		if !scanner.Scan() {
@@ -30,6 +32,6 @@ func main() {
 			res = err.Error()
 		}
 		fmt.Println(res)
-
+		logStreamer.Send(input, res)
 	}
 }
